@@ -8,7 +8,7 @@ mkdir -p $tools
 
 echo "Make sure this script is executed AFTER you have activated a virtualenv"
 
-pip install torch
+pip install torch sacremoses
 
 # install Moses scripts for preprocessing
 

@@ -6,6 +6,8 @@ import argparse
 import logging
 
 from collections import Counter
+from sacremoses import MosesTokenizer
+from itertools import chain
 
 
 def parse_args():
@@ -14,6 +16,7 @@ def parse_args():
     parser.add_argument("--vocab-size", type=int, help="Size of vocabulary", required=True)
     parser.add_argument("--tokenize", action="store_true", help="Assume input strings are not tokenized yet.", required=False)
     parser.add_argument("--unk-string", type=str, help="String to use for out-of-vocabulary tokens.", default="<unk>", required=False)
+    parser.add_argument("--lang", type=str, help="Language code (important for --tokenize)", default="en", required=False)
 
     args = parser.parse_args()
 
@@ -28,25 +31,34 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
     logging.debug(args)
 
+    if args.tokenize:
+        tokenizer = MosesTokenizer(lang=args.lang)
+
     lines = sys.stdin.readlines()
 
-    tokens = []
+    all_tokens = []
 
     for line in lines:
-        tokens.append(line.split())
+        if args.tokenize:
+            t = tokenizer.tokenize(line)
+        else:
+            t = line.split()
+        all_tokens.append(t)
 
-    counter = Counter(tokens)
+    flat_tokens = chain.from_iterable(all_tokens)
+
+    counter = Counter(flat_tokens)
 
     # try to free up memory early
 
-    del tokens
+    del flat_tokens
+
+    logging.debug("Vocabulary size before/after/max_allowed = %d/%d/%d" % (len(counter.keys()), min(args.vocab_size, len(counter.keys())), args.vocab_size))
 
     vocabulary = [token for token, frequency in counter.most_common(args.vocab_size)]
 
-    for line in lines:
+    for tokens in all_tokens:
         output_tokens = []
-        tokens = line.split()
-
         for token in tokens:
             if token in vocabulary:
                 output_tokens.append(token)
