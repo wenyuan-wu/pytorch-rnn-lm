@@ -1,6 +1,6 @@
 # Pytorch RNN Language Models
 
-This repo shows how to train neural language model using [Pytorch example code](https://github.com/pytorch/examples/tree/master/word_language_model).
+This repo shows how to train neural language models using [Pytorch example code](https://github.com/pytorch/examples/tree/master/word_language_model).
 
 # Requirements
 
