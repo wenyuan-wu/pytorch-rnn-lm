@@ -11,7 +11,7 @@ mkdir -p $models-tolstoy_10000
 
 num_threads=12
 device="0"
-emsize=300
+emsize=500
 
 SECONDS=0
 
