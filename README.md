@@ -31,6 +31,8 @@ Download and preprocess data:
 
     ./scripts/download_data.sh
 
+**Changes was made to download the new data set**
+
 Train a model:
 
     ./scripts/train.sh
@@ -41,10 +43,16 @@ Generate (sample) some text from a trained model with:
 
     ./scripts/generate.sh
 
-# Comments
+# Feedback
 ## Dataset
-
+For this task the novel War and Peace from Leo Tolstoy as the dataset is chosen, which suits the requirements of the data
+set. The attempt to "be creative" was failed: there are no enough corpora written in fictional language like Klingon, 
+Dothraki or any other elvish languages from Middle-earth. 
 ## Training hyperparameters
+In preprocess phase two data sets are prepared with vocabulary size of 5000 and 10000 respectively. To discuss the 
+impact of different embedding size each data set will be trained 5 times with embedding size set form 100 to 500. The
+results goes as following:
+
 vocab_size: 5000
 
 | Embedding size | Test perplexity (↓) | Time (↑) |
@@ -65,4 +73,15 @@ vocab_size: 10000
 | 400 | 52.35 | 427 |
 | 500 | 50.70 | 677 |
 
-longer time with bigger size, but not significant improvement
+From the tables above the conclusion can be drawn that with higher embedding sizer the trained models gain lower 
+perplexity, but more time will be spent. On the other hand there's a significant improvement when the size increases
+from 100 to 200, while much less enrichment reflected in scores of perplexity from 200 up to 500. In a word, balance 
+need to be fitted between model performance and time consumption. Another interesting finding from the tables is 
+vocabulary size 10000 throws respectively worse results, which in this case larger vocabulary doesn't bring benefits
+to training.
+
+## Comments
+On my PC the environment variable **CUDA_VISIBLE_DEVICES** takes no effect to specify a cuba enabled GPU, therefore the 
+**--cuda** option has to be manually enabled. On the other hand, **OMP_NUM_THREADS** works as intended, which is weird.
+OS: Ubuntu 18.04.4 LTS
+Python 3.7.5
