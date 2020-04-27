@@ -7,18 +7,20 @@ models=$base/models
 data=$base/data
 tools=$base/tools
 
-mkdir -p $models
+mkdir -p $models-tolstoy_10000
 
-num_threads=4
-device=""
+num_threads=12
+device="0"
+emsize=300
 
 SECONDS=0
 
 (cd $tools/pytorch-examples/word_language_model &&
-    CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python main.py --data $data/trump \
+    CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python main.py --data $data/tolstoy \
         --epochs 40 \
-        --emsize 200 --nhid 200 --dropout 0.5 --tied \
-        --save $models/model.pt
+        --emsize $emsize --nhid $emsize --dropout 0.5 --tied \
+        --save $models-tolstoy_10000/model.$emsize.pt \
+        --cuda
 )
 
 echo "time taken:"

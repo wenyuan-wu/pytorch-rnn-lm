@@ -40,3 +40,29 @@ The training process can be interrupted at any time, and the best checkpoint wil
 Generate (sample) some text from a trained model with:
 
     ./scripts/generate.sh
+
+# Comments
+## Dataset
+
+## Training hyperparameters
+vocab_size: 5000
+
+| Embedding size | Test perplexity (↓) | Time (↑) |
+| --- | --- | --- |
+| 100 | 59.96 | 138 |
+| 200 | 46.52 | 199 |
+| 300 | 42.48 | 279 |
+| 400 | 41.04 | 371 |
+| 500 | 39.76 | 432 |
+
+vocab_size: 10000
+
+| Embedding size | Test perplexity (↓) | Time (↑) |
+| --- | --- | --- |
+| 100 | 75.91 | 177 |
+| 200 | 61.42 | 237 |
+| 300 | 0 | 0 |
+| 400 | 0 | 0 |
+| 500 | 0 | 0 |
+
+longer time with bigger size, but not significant improvement

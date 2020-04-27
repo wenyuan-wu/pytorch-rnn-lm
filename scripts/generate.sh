@@ -8,15 +8,16 @@ data=$base/data
 tools=$base/tools
 samples=$base/samples
 
-mkdir -p $samples
+mkdir -p $samples-tolstoy
 
-num_threads=4
-device=""
+num_threads=12
+device="0"
 
 (cd $tools/pytorch-examples/word_language_model &&
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
-        --data $data/trump \
-        --words 100 \
-        --checkpoint $models/model.pt \
-        --outf $samples/sample
+        --data $data/tolstoy \
+        --words 500 \
+        --checkpoint $models-tolstoy/model.500.pt \
+        --outf $samples-tolstoy/sample \
+        --cuda
 )
