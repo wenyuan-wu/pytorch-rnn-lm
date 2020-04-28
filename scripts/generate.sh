@@ -18,6 +18,7 @@ device="0"
         --data $data/tolstoy \
         --words 500 \
         --checkpoint $models-tolstoy/model.500.pt \
-        --outf $samples-tolstoy/sample \
-        --cuda
+        --outf $samples-tolstoy/sample_greedy \
+        --cuda \
+        --strategy greedy
 )
