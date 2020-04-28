@@ -1,0 +1,9 @@
+Olat usernames: joegas and wenyuanwu
+
+Link to github repository for task 2:
+
+https://github.com/wenyuan-wu/pytorch-rnn-lm
+
+Link to github repository for task 3:
+
+https://github.com/wenyuan-wu/examples
